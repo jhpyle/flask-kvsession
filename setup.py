@@ -14,15 +14,15 @@ def read(fname):
 
 
 setup(
-    name='Flask-KVSession',
-    version='0.6.3.dev1',
-    url='https://github.com/mbr/flask-kvsession',
+    name='docassemblekvsession',
+    version='0.1',
+    url='https://github.com/jhpyle/flask-kvsession',
     license='MIT',
-    author='Marc Brinkmann',
-    author_email='git@marcbrinkmann.de',
+    author='Marc Brinkmann and Jonathan Pyle',
+    author_email='jhpyle@gmail.com',
     description='Transparent server-side session support for flask',
     long_description=read('README.rst'),
-    packages=['flask_kvsession'],
+    packages=['docassemblekvsession'],
     zip_safe=False,
     platforms='any',
     install_requires=[

@@ -200,6 +200,7 @@ class KVSessionInterface(SessionInterface):
                                 path=self.get_cookie_path(app),
                                 domain=self.get_cookie_domain(app),
                                 secure=app.config['SESSION_COOKIE_SECURE'],
+                                samesite=app.config['SESSION_COOKIE_SAMESITE'],
                                 httponly=app.config['SESSION_COOKIE_HTTPONLY'])
 
 
