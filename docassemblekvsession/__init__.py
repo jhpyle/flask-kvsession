@@ -166,6 +166,16 @@ class KVSessionInterface(SessionInterface):
 
             return s
 
+    def manual_save_session(self, app, session):
+        if not getattr(session, 'sid_s', None):
+            session.sid_s = SessionID(
+                current_app.config['SESSION_RANDOM_SOURCE'].getrandbits(
+                    app.config['SESSION_KEY_BITS'])).serialize()
+
+        cookie_data = Signer(app.secret_key).sign(
+            session.sid_s.encode('ascii'))
+        return cookie_data
+
     def save_session(self, app, session, response):
         # we only save modified sessions
         if session.modified:
