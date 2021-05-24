@@ -12,11 +12,12 @@ from datetime import datetime
 from random import SystemRandom
 import re
 
-from flask import current_app
+from flask import current_app, g
 from flask.sessions import SessionMixin, SessionInterface
 from itsdangerous import Signer, BadSignature
 from werkzeug.datastructures import CallbackDict
 
+from flask.sessions import SecureCookieSession
 
 class SessionID(object):
     """Helper class for parsing session ids.
@@ -123,7 +124,6 @@ class KVSession(CallbackDict, SessionMixin):
 
             # save_session() will take care of saving the session now
 
-
 class KVSessionInterface(SessionInterface):
     serialization_method = pickle
     session_class = KVSession
@@ -210,9 +210,13 @@ class KVSessionInterface(SessionInterface):
                                 path=self.get_cookie_path(app),
                                 domain=self.get_cookie_domain(app),
                                 secure=app.config['SESSION_COOKIE_SECURE'],
-                                samesite=app.config['SESSION_COOKIE_SAMESITE'],
+                                samesite=self.get_cookie_samesite(app),
                                 httponly=app.config['SESSION_COOKIE_HTTPONLY'])
 
+    def get_cookie_samesite(self, app):
+        if 'embed' in g:
+            return 'None'
+        return super().get_cookie_samesite(app)
 
 class KVSessionExtension(object):
     """Activates Flask-KVSession for an application.

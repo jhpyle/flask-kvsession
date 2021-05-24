@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name='docassemblekvsession',
-    version='0.4',
+    version='0.6',
     url='https://github.com/jhpyle/flask-kvsession',
     license='MIT',
     author='Marc Brinkmann and Jonathan Pyle',
