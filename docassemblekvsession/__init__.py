@@ -202,7 +202,7 @@ class KVSessionInterface(SessionInterface):
 
             # save sid_s in cookie
             cookie_data = Signer(app.secret_key).sign(
-                session.sid_s.encode('ascii'))
+                session.sid_s.encode('ascii')).decode()
 
             response.set_cookie(key=app.config['SESSION_COOKIE_NAME'],
                                 value=cookie_data,
