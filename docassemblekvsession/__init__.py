@@ -132,8 +132,11 @@ class KVSessionInterface(SessionInterface):
         key = app.secret_key
 
         if key is not None:
-            session_cookie = request.cookies.get(
-                app.config['SESSION_COOKIE_NAME'], None) or request.headers.get('X-User-Auth', None)
+            if request.endpoint is not None and request.endpoint.startswith('api_'):
+                session_cookie = None
+            else:
+                session_cookie = request.cookies.get(
+                    app.config['SESSION_COOKIE_NAME'], None) or request.headers.get('X-User-Auth', None)
 
             s = None
 
